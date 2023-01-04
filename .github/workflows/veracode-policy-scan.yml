@@ -1,4 +1,4 @@
-name: Check for passwords
+name: Veracode Static Code Analysis
 
 on:
   repository_dispatch:
