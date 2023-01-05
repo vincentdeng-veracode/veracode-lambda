@@ -41,7 +41,7 @@ jobs:
       with:
         name: verademo.war
         path: target/verademo.war
-        
+
   pipeline_scan:
     # needs the build step before this job will start running
     needs: build
@@ -59,9 +59,9 @@ jobs:
           name: verademo.war
 
       # run the pipeline scan action
-      - name: pipeline-scan action step
+      - name: Veracode Pipeline-Scan
         id: pipeline-scan
-        uses: veracode/Veracode-pipeline-scan-action@latest
+        uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
         with:
           vid: ${{ secrets.API_ID }}
           vkey: ${{ secrets.API_KEY }}
