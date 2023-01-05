@@ -63,4 +63,4 @@ jobs:
           vid: '${{ secrets.API_ID }}'
           vkey: '${{ secrets.API_KEY }}'
           scantimeout: 15
-        continue-on-error: true
+        continue-on-error: false
