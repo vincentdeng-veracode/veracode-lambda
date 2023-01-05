@@ -42,32 +42,31 @@ jobs:
         name: verademo.war
         path: target/verademo.war
         
-  veracode-pipeline-scan:
+  pipeline_scan:
+    # needs the build step before this job will start running
     needs: build
     runs-on: ubuntu-latest
-    container: 
-      image: veracode/pipeline-scan:latest
-      options: --user root
+    name: pipeline scan
+
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: main
+      - name: checkout repo
+        uses: actions/checkout@v3
+      
+      # get the compiled binary from a previous job
       - name: get archive
         uses: actions/download-artifact@v3
         with:
           name: verademo.war
-          path: /tmp
-      - name: pipeline-scan
-        run: | 
-          java -jar /opt/veracode/pipeline-scan.jar \
-            -vid "${{secrets.API_ID}}" \
-            -vkey "${{secrets.API_KEY}}" \
-            --fail_on_severity="Very High, High" \
-            --file /tmp/verademo.war \
-            -bf ./results.json \
-            -jf results.json \
-            -fjf filtered_results.json 
-        continue-on-error: true
+
+      # run the pipeline scan action
+      - name: pipeline-scan action step
+        id: pipeline-scan
+        uses: veracode/Veracode-pipeline-scan-action@latest
+        with:
+          vid: ${{ secrets.API_ID }}
+          vkey: ${{ secrets.API_KEY }}
+          file: "verademo.war" 
+          fail_build: false
 
 #   policy-scan:
 #     runs-on: ubuntu-latest
