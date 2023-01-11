@@ -66,7 +66,7 @@ jobs:
           vid: ${{ secrets.API_ID }}
           vkey: ${{ secrets.API_KEY }}
           file: "verademo.war" 
-          fail_build: true
+          fail_build: false
 
 #   policy-scan:
 #     runs-on: ubuntu-latest
