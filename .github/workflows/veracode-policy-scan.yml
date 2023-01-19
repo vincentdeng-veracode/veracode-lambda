@@ -15,7 +15,7 @@ jobs:
         sha: ${{ github.event.client_payload.sha }}
         run_id: ${{ github.run_id }}
         name: "Central markdown check"
-        token: ${{ github.event.clent_payload.token }}
+        token: ${{ github.event.client_payload.token }}
         enforce: true
         
   build:
