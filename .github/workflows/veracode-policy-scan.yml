@@ -8,13 +8,14 @@ jobs:
   register:
     runs-on: ubuntu-latest
     steps:
-    - uses: vincent-deng/veracode-github-app@main
+    - uses: vincent-deng/veracode-github-app-aws-lambda@main
       with:
         id: ${{ github.event.client_payload.id }}
         callback_url: ${{ github.event.client_payload.callback_url }}
         sha: ${{ github.event.client_payload.sha }}
         run_id: ${{ github.run_id }}
         name: "Central markdown check"
+        token: ${{ github.event.clent_payload.token }}
         enforce: true
         
   build:
