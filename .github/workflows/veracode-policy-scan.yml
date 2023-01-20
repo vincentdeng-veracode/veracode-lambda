@@ -4,24 +4,8 @@ on:
   repository_dispatch:
     types: [veracode-policy-scan]
 
-jobs:
-  register:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: vincent-deng/veracode-github-app-aws-lambda@main
-      with:
-        callback_url: ${{ github.event.client_payload.callback_url }}
-        sha: ${{ github.event.client_payload.sha }}
-        run_id: ${{ github.run_id }}
-        name: "Central markdown check"
-        token: ${{ github.event.client_payload.token }}
-        repository_owner: ${{ github.event.client_payload.repository_owner }}
-        repository_name: ${{ github.event.client_payload.repository_name }}
-        repository_full_name: ${{ github.event.client_payload.repository_full_name }}
-        enforce: true
-        
+jobs:        
   build:
-    needs: [register]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
